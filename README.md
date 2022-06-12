@@ -16,12 +16,12 @@
 #### 挂载
 ```
 // src/main.js
-import { CreateAPP } from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
-import { CreatePinia } from 'pinia'
+import { createPinia } from 'pinia'
 
-const pinia = CreatePinia()
-const app = CreateAPP()
+const pinia = createPinia()
+const app = createApp()
 
 app
   .use(pinia)
@@ -43,7 +43,7 @@ export const mainStore = defineStore('main', {
 ```
 ```
 // src/components/HelloWorld.vue
-<script>
+<script setup>
   import { mainStore } from '../store/index'
   const store = mainStore()
 </script>
