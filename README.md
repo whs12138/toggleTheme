@@ -1,7 +1,88 @@
-# Vue 3 + Vite
+## Toggle the view theme.
+### `Pinia` + `v-bind`
+- Pinia: [https://pinia.web3doc.top/](https://pinia.web3doc.top/)
+- Vue-router4 :[https://router.vuejs.org/zh/introduction.html](https://router.vuejs.org/zh/introduction.html)
+- Vue3 新文档：[https://staging-cn.vuejs.org/](https://staging-cn.vuejs.org/)
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+> Vite 创建 项目
 
-## Recommended IDE Setup
+`npm init vite@latest xxx`
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+> 安装和挂载 Pinia
+#### 安装
+```
+ npm install pinia
+```
+#### 挂载
+```
+// src/main.js
+import { CreateAPP } from 'vue'
+import App from './App.vue'
+import { CreatePinia } from 'pinia'
+
+const pinia = CreatePinia()
+const app = CreateAPP()
+
+app
+  .use(pinia)
+  .mount('#app')
+```
+```
+// src.store/index.js
+import { defineStore } from 'pinia'
+
+export const mainStore = defineStore('main', {
+  state: () => {
+    return {
+      msg: 'hello Pinia'
+    }
+  },
+  getters: {},
+  actions: {}
+})
+```
+```
+// src/components/HelloWorld.vue
+<script>
+  import { mainStore } from '../store/index'
+  const store = mainStore()
+</script>
+
+<template>
+  {{ store.msg }}
+</template>
+```
+
+> 安装和挂载Vue-router
+
+#### 安装
+`npm install vue-router`
+
+#### 挂载
+```
+// src/router/index.js
+
+import { createRouter, createWebHashHistory } from 'vue-router'
+
+const routes = [
+  {
+    path: '/',
+    component: () => import('../component/HelloWorld.vue'),
+  },
+]
+
+export default createRouter({
+  history: createWebHashHistory(),
+  routes
+})
+
+```
+
+```
+// src/main.js
+import router from './router/index'
+createApp(App)
+  .use(router)
+  .mount('#app')
+
+```
