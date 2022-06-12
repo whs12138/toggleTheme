@@ -21,7 +21,7 @@ import App from './App.vue'
 import { createPinia } from 'pinia'
 
 const pinia = createPinia()
-const app = createApp()
+const app = createApp(App)
 
 app
   .use(pinia)
